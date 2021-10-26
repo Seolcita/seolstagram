@@ -1,0 +1,58 @@
+/** @format */
+
+@import 'variables.scss';
+
+.post {
+  width: 60%;
+  max-width: 80rem;
+  margin: auto;
+  padding: 3% 5% 0;
+  font-size: 1.5rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+
+    background-color: $color-white;
+
+    &--avatar {
+      margin-right: 1.5rem;
+    }
+
+    &--name {
+      font-weight: normal;
+      color: $color-blue-dark;
+    }
+  }
+
+  &__body {
+    background-color: $color-white;
+    width: 100%;
+    height: 100%;
+    // border: none;
+    &--img {
+      object-fit: contain;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &__footer {
+    background-color: $color-white;
+    padding: 1rem;
+    margin-top: -3px;
+    // border: none;
+
+    &--text {
+      font-weight: normal;
+      color: $color-blue-dark;
+
+      margin: 0;
+    }
+    &--username {
+      font-weight: 600;
+    }
+  }
+}
