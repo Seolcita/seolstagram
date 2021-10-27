@@ -42,3 +42,64 @@
     }
   }
 }
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    &--logo {
+      width: 6rem;
+      height: 6rem;
+      margin-right: 1.5rem;
+      object-fit: contain;
+    }
+
+    &--title {
+      font-family: 'Indie Flower', cursive;
+      font-size: 3rem;
+      color: $color-blue-dark;
+      font-weight: 700;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 40vw;
+    height: 50vh;
+    background-color: orange;
+  }
+
+  &__form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &--input {
+      width: 50%;
+      margin-bottom: 1rem;
+    }
+
+    &--input,
+    &--btn {
+      width: 50%;
+      height: 3rem;
+      margin-bottom: 1rem;
+      border: none;
+      padding: 5px;
+    }
+  }
+}
