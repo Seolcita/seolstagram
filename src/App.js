@@ -77,13 +77,6 @@ const App = () => {
 
   return (
     <div className="app">
-      {/* Upload Post */}
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ) : (
-        <h3>Login to upload </h3>
-      )}
-
       {/* Sign Up */}
       <Modal open={open} onClose={() => setOpen(false)} className="modal">
         <div className="modal__container">
@@ -176,6 +169,13 @@ const App = () => {
           </span>
         </div>
       </div>
+
+      {/* Upload Post */}
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h3>Login to upload </h3>
+      )}
 
       {/* Contents */}
       {posts.map(({ id, post }) => (

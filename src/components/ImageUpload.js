@@ -4,9 +4,11 @@ import firebase from 'firebase';
 import React, { useState } from 'react';
 import db, { storage } from '../firebase';
 
+//CSS
+import './ImageUpload.scss';
+
 function ImageUpload({ username }) {
   const [caption, setCaption] = useState('');
-  const [progress, setProgress] = useState(0);
   const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
@@ -26,12 +28,9 @@ function ImageUpload({ username }) {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        // console.log('PROGRESS >>>>>>>>>>>>', progress);
-        setProgress(progress);
       },
       // Catch erorr
       (error) => {
-        // console.log(error);
         alert(error.message);
       },
       // Complete function...
@@ -40,7 +39,6 @@ function ImageUpload({ username }) {
         .child(image.name)
         .getDownloadURL()
         .then((url) => {
-          // console.log(url);
           //post image inside db
           db.collection('posts').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -49,7 +47,6 @@ function ImageUpload({ username }) {
             username: username,
           });
 
-          setProgress(0);
           setCaption('');
           setImage(null);
         })
@@ -57,8 +54,7 @@ function ImageUpload({ username }) {
   };
 
   return (
-    <div className="imageupload">
-      <progress value={progress} max="100" />
+    <div className="imageUpload">
       <input
         type="text"
         onChange={(e) => setCaption(e.target.value)}
