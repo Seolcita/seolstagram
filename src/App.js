@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import db, { auth } from './firebase';
+import ImageUpload from './components/ImageUpload';
 
 //Images
 import logo from './images/logo.png';
@@ -21,6 +22,7 @@ const App = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const [openSignIn, setOpenSignIn] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -28,15 +30,6 @@ const App = () => {
         // user has logged in
         console.log(authUser);
         setUser(authUser);
-
-        // if (authUser.displayName) {
-        //   // dont update username
-        // } else {
-        //   // if we just created someone
-        //   return authUser.updateProfile({
-        //     displayName: username,
-        //   });
-        // }
       } else {
         // user has logged out
         setUser(null);
@@ -69,17 +62,30 @@ const App = () => {
         return authUser.user.updateProfile({ displayName: username });
       })
       .catch((err) => alert(err.message));
+
+    setOpen(false);
+  };
+
+  const signIn = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .catch((err) => alert(err.message));
+
+    setOpenSignIn(false);
   };
 
   return (
     <div className="app">
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className="modal"
-      >
+      {/* Upload Post */}
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h3>Login to upload </h3>
+      )}
+
+      {/* Sign Up */}
+      <Modal open={open} onClose={() => setOpen(false)} className="modal">
         <div className="modal__container">
           <div className="modal__header">
             <img className="modal__header--logo" src={logo} alt="ogo" />
@@ -113,6 +119,41 @@ const App = () => {
           </form>
         </div>
       </Modal>
+
+      {/* Login */}
+      <Modal
+        open={openSignIn}
+        onClose={() => setOpenSignIn(false)}
+        className="modal"
+      >
+        <div className="modal__container">
+          <div className="modal__header">
+            <img className="modal__header--logo" src={logo} alt="ogo" />
+            <span className="modal__header--title">Seolstagram</span>
+          </div>
+          <form className="modal__form">
+            <input
+              className="modal__form--input"
+              type="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              className="modal__form--input"
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit" className="modal__form--btn" onClick={signIn}>
+              Sign In
+            </button>
+          </form>
+        </div>
+      </Modal>
+
+      {/* Header */}
       <div className="app__header">
         <div className="app__header__logo">
           <img
@@ -124,11 +165,19 @@ const App = () => {
         </div>
         <div className="app__header__auth">
           <span className="app__header__auth--status">
-            <a onClick={() => setOpen(true)}>Login</a>
+            {user ? (
+              <a onClick={() => auth.signOut()}> Logout</a>
+            ) : (
+              <div className="app__loginContainer">
+                <a onClick={() => setOpenSignIn(true)}> Sign In</a>
+                <a onClick={() => setOpen(true)}> Sign Up</a>
+              </div>
+            )}
           </span>
         </div>
       </div>
 
+      {/* Contents */}
       {posts.map(({ id, post }) => (
         <Post
           key={id}
