@@ -55,16 +55,26 @@ function ImageUpload({ username }) {
 
   return (
     <div className="imageUpload">
-      <input
-        type="text"
-        onChange={(e) => setCaption(e.target.value)}
-        value={caption}
-        placeholder="Enter a caption..."
-      />
-      <input type="file" onChange={handleChange} />
-      <button type="submit" onClick={handleUpload}>
-        Upload
-      </button>
+      <div className="imageUpload__container">
+        <div className="imageUpload__inputs">
+          <textarea
+            type="text"
+            onChange={(e) => setCaption(e.target.value)}
+            value={caption}
+            placeholder="What's on your mind?"
+          />
+
+          <input type="file" onChange={handleChange} />
+        </div>
+        <button
+          type="submit"
+          className="imageUpload__btn"
+          onClick={handleUpload}
+          disabled={!image}
+        >
+          Upload
+        </button>
+      </div>
     </div>
   );
 }

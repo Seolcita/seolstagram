@@ -174,13 +174,15 @@ const App = () => {
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
-        <h3>Login to upload </h3>
+        <h3 className="login-message">*** Login to upload post ***</h3>
       )}
 
       {/* Contents */}
       {posts.map(({ id, post }) => (
         <Post
           key={id}
+          postId={id}
+          user={user?.displayName}
           username={post.username}
           imageUrl={post.imageUrl}
           avatar={avatar}

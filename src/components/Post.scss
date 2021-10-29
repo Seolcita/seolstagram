@@ -40,8 +40,9 @@
   }
 
   &__footer {
+    width: 100%;
     background-color: $color-white;
-    padding: 1rem;
+    padding: 2rem 1rem;
     margin-top: -3px;
     // border: none;
 
@@ -53,6 +54,43 @@
     }
     &--username {
       font-weight: 600;
+    }
+  }
+
+  &__comments {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: black;
+
+    &--title {
+      margin-bottom: 5px;
+      color: $color-grey-medium;
+    }
+
+    &--span {
+      margin-left: 1rem;
+    }
+  }
+
+  &__comment {
+    width: 100%;
+    margin-top: 1rem;
+
+    &--text {
+      width: 90%;
+      padding: 1rem;
+      border: none;
+      background-color: $color-grey-light;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &--btn {
+      width: 10%;
+      padding: 1rem;
+      border: none;
     }
   }
 }
